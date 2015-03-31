@@ -1,0 +1,13 @@
+#############################################################
+## List of VxD int 20h service                              #
+#############################################################
+
+VxD=0001=VMM                      # total service=402 :
+0083=Begin_Nest_Exec                                  # 00010083:
+0084=Exec_V86_Mode_Int                                # 00010084:
+0085=Resume_Exec                                      # 00010085:
+0086=End_Nest_Exec                                    # 00010086:
+
+VxD=0006=V86MMGR                  # total service= 25 :
+0008=V86MMGR_Allocate_Buffer                          # 00060008:
+0009=V86MMGR_Free_Buffer                              # 00060009:

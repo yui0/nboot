@@ -1,0 +1,360 @@
+//------------------------------------------------------------------------
+//	NBoot Ver 1.02
+//
+//		(C)2000-2002 NAKADA
+//------------------------------------------------------------------------
+
+
+// FEATURES
+
+NBoot is a Boot Manager program that is loaded when the computer is turned on
+and allows to choose the operating system you want to use.
+
+Its main features are:
+
+	-Allows to boot up to 9 different operating systems.
+
+	-Can boot operating systems instaled in primary and extended
+	partitions. Them can be instaled in any hard disk too.
+
+	-NBoot doesn't need its own partition. It installs itself in the
+	first track of the hard disk, which is reserved for this kind of
+	programs. It can also be instaled in a floppy disk, without using
+	the hard disk.
+
+	-Has a timer to boot a default operating system (selectable by
+	the user).
+
+	-The configuration menu can be protected with a password. Also,
+	each operating system can be protected with its own password.
+
+	-The program works in graphic mode. (needs a VGA or better graphic
+	card)
+
+        -Hides the primary partitions, allowing the installation of more
+        than one DOS and/or Windows in the same hard disk.
+
+        -Can exchange disk drives, allowing to boot from the second, third...
+        hard disk operating systems such as MS-DOS.
+
+        -Has the SafeBoot system, that allows to boot your hard disk even if
+        NBoot is accidentally overwrited.
+
+
+DISCLAIMER
+
+NBoot is a program distributed 'as is', without any warranty of any kind. The
+autor will not be responsible if there's loss of data in your hard disk or
+other problem. Use it under your own risk.
+
+
+ABOUT THE LBA PARTITIONS SUPPORT
+
+The support for LBA partitions is limited, because it doesn't work with
+partitions that are beyond the 8Gbytes limit. It needs that the partition
+table has the CHS parameters too. If not, NBoot will not be capable of
+working with them.
+
+This is because I haven't documentation about the new extended calls
+for the BIOS, that allows to work with LBA parameters. If someone can
+send it to me...
+
+
+INSTALATION
+
+NBoot is distributed as a disquette image, so if you want to install it you
+need an 3 1/2 inch, high density, formated empty floppy. This allows you
+to install NBoot without worrying about what operating systems you have.
+
+
+CREATING THE BOOT DISK
+
+First, you need to create the floppy. That's why is included the
+RAWRITE2.EXE program.
+
+
+FROM DOS
+
+Insert the formated disk and type
+
+        RAWRITE2.EXE -F NBoot.IMA -D A:
+
+This will create a boot disk with NBoot.
+
+
+FROM WINDOWS 3.1/95/98
+
+Restart the system in MS-DOS mode and do the same that in FROM DOS.
+
+
+FROM OS/2
+
+Open a DOS session (it can be window or full screen) and do the same that
+in FROM DOS.
+
+If the program returns a DMA error, edit the CONFIG.SYS file and modify
+your DOS variable, putting it as
+
+        DOS=HIGH,UMB
+
+Default value is DOS=LOW,NOUMB.
+
+If you prefer, you can use the native program IMAGE.EXE, that comes in
+the OS/2 CD-ROM.
+
+
+FROM LINUX/UNIX
+
+Insert the formated floppy in disk drive and type
+
+        dd if=NBoot.ima of=/dev/fd0 bs=512 count=2800
+
+In other UNIX systems is possible you must use something different to
+/dev/fd0.
+
+
+OTHER OPERATING SYSTEMS
+
+You need a program that allows you to create floppies from disk images,
+and use it.
+
+
+BOOTING NBoot
+
+Restart your computer and boot it with the created floppy. In your screen
+will be shown the main menu of NBoot. There's only two icons: boot from
+floppy and Setup. Under each description is the key you have to press to
+make that action.
+
+Press S (Setup) and the Setup Menu will be shown, with these options:
+
+
+ADD OPERATING SYSTEM
+
+The first option allows to install in NBoot the operating system installed
+in your hard disk. A list with all partitions in your first hard disk is
+displayed (primary and extended partitions). Choose the partition where
+is located the first O.S. you want to add by pressing the letter that is
+with it (A for the floppy disk, B for the first primary partition...). If
+you have more than one hard disk, you can choose another by pressing 1 to 8.
+
+If you choose a partition from a hard disk different than the first, NBoot
+will ask you if you want to swap the disk drives. If you answer YES, each
+time you boot with that icon a litle resident program will be installed,
+wich will swap that drive and the first hard disk, so the operating
+system will think that the second (or third...) hard disk is the first (C:)
+and the first is the second (or third...) (D:). This allows you to
+boot operating systems such as MS-DOS from a disk different than the first.
+
+WARNING: the resident program works at BIOS level, so it will not work
+with operating systems that uses specific drivers to access to the hard
+disk. The resident will substract 1 KByte of conventional memory.
+
+The resident program is installed even if you choose from a hard disk
+different than the first the option 'Boot from floppy'. This allows you
+to create an icon that boot from floppy with the hard disks swapped, wich
+allow you to install that operating systems in theses drives directly,
+without unmounting them.
+
+After that, you have to type a litle description (up to 15 characters) of
+the Operating system. As an example: Linux, OS/2, Windows...
+
+Then, you have to type a password to protect this operating system. This
+password will must be typed each time you want to boot this operating
+system. If you press RETURN, no password is required.
+
+Finally, you choose the icon you want for that O.S. just by pressing a
+letter from A to Z (A for the first icon, B for the second...)
+
+Repeat this for all O.S. you have in your hard disk.
+
+
+DELETE OPERATING SYSTEM.
+
+This option deletes the entry of an operating system from NBoot. When you
+press D, a list of the configured operating systems is showed. Pressing a
+number from 1 to 9 you eliminate it. But WARNING: this option DON'T DELETE
+the operating system from the hard disk; only delete it from the NBoot list,
+but you can add it again. To eliminate an O.S. you have to use FDISK.
+
+If you don't want to delete an O.S., you can return pressing ESC.
+
+
+BOOT TIMER
+
+This option allows us to select the time in seconds that NBoot must wait
+before boot the default O.S. The maximum is 99 seconds. If we had the
+timer enabled and want to disable it, just press RETURN or type 0.
+
+Boot timer is disabled every time an O.S. is deleted from NBoot too.
+
+
+SETUP PASSWORD
+
+With this option we can enter a password to avoid people to change the
+configuration when NBoot is instaled in a 'public' computer.
+
+
+RETURN
+
+With this option we return to the main menu.
+
+INSTALL IN FLOPPY
+
+With this option NBoot and the actual configuration is saved in the floppy.
+This allows to try NBoot without instaling it in the hard disk.
+
+INSTALL IN HARD DISK
+
+This option allow us to save NBoot and the actual configuration in the MBR
+of our hard disk, so it will be loaded every time we turn on the computer.
+As NBoot is larger than 512 bytes, only a little loader is saved in the MBR,
+and the rest of the code is saved in the first 15 sectors of the first
+track, which are reserved for this kind of programs. But this has some
+little problems:
+
+        -NBoot can't be instaled in a hard disk with less than 39 sectors
+        per track. If you try to do it, NBoot will return an error message.
+        This isn't really a big problem, because today all
+	hard disk has 63 sectors per track. Only very old hard disks
+	(maded before the year 1992) can have problems with this. In
+	that case, NBoot will return an error ('Disk error') and will not
+	be installed.
+
+        -Some old BIOSes (before 1992, aprox) can't recognize hard disks
+        with more than 1024 cilinders. In this cases, there's a lot of
+        programs that fixes this. The problem is that these programs
+        stores itselfs in the first track, so NBoot is incompatible with them.
+
+        -Some viruses installs itself in the first track too, so if a day,
+        instead of NBoot, an O.S. is booted directly, is possible that
+        there's one in your hard disk.
+
+        -I strongly recomend to test NBoot first from a floppy, and only if
+        it works right, install it in the Hard Disk.
+
+WARNING: each time you change the options or the list of O.S. to boot, you
+must use the INSTALL IN FLOPPY or INSTALL IN HARD DISK too, because only
+then will be saved that changes.
+
+
+WHAT IS SAFEBOOT?
+
+SafeBoot is a new feature of NBoot that allows to boot your hard disk always.
+If there's an error when NBoot is loading, just reset your computer and hold
+pressed the SHIFT, ALT or CNTRL key. Instead of load NBoot, the MBR code will
+load the last operating system used, so you can reinstall NBoot or fix the
+error.
+
+To avoid a 'security hole', SafeBoot is disabled if there's an entry with
+password. This is because SafeBoot doesn't use passwords, so a
+malicious person can use it to jump over them. But if you have password
+only for the Setup option, but not for booting the operating systems,
+SafeBoot will be available.
+
+Remember that you can have a floppy disk with NBoot installed and configured
+for your hard disk, so you can use it as a rescue disk if something occurrs.
+
+
+ERRORS RETURNED BY NBoot WHEN IT BOOTS
+
+When NBoot boots, makes some tests. If it founds an error, it shows a number
+in the screen and halts the system. The errors are theses:
+
+    NBoot: 1
+
+    BAD SECTOR: there was a read error when tried to load NBoot. If you was
+    booting from floppy, reinstall it in other floppy without bad sectors.
+    If you was booting from hard disk, use SafeBoot to boot an operating
+    system and reinstall NBoot. If the error is still present, you have bad
+    sectors in your hard disk.
+
+    NBoot: 2
+
+    ACTIVE PARTITION NOT FOUND: this error occurrs only with SafeBoot.
+    There's no one partition marked as active (this is, marked as C:).
+    Just boot with a floppy, use FDISK to mark one and reset.
+
+    NBoot: 3
+
+    NBoot NOT FOUND: the code loaded from the floppy or the hard disk
+    has not the NBoot signature. Is possible that the first track has
+    been overwrite. Use SafeBoot and reinstall NBoot.
+
+    NBoot: 4
+
+    NO BOOT SECTOR: this error can occurr only with SafeBoot. The
+    active partition doesn't contain a valid operating system. Reboot
+    with a floppy, use FDISK to mark other partition as active and
+    reboot.
+
+
+NBoot AND THE OPERATING SYSTEMS
+
+If you want to use NBoot with MS-DOS or Windows 95/98, you don't need to do
+nothing special, because it can be instaled only in primary partitions.
+
+If you want to use NBoot with OS/2, is possible that, during the O.S.
+instalation, you must to install the OS/2 Boot Manager too (this ocurrs
+when you install OS/2 in an extended partition and/or in the second,
+third... hard disk). Don't worry. Continue the instalation and, after it
+ends, install NBoot. But there's a little problem: when OS/2 is instaled in
+an extended partition, NBoot can't boot it directly. You must have instaled
+the OS/2 Boot Manager, and boot it from NBoot. To prevent the Boot Manager's
+menu to be displayed, you can put its timer to zero seconds. I hope to fix
+this in a near version of NBoot. But if you want to boot OS/2 from a primary
+partition of the second, or third... hard disk, you only have to answer
+YES to the 'Exchange drive letters' option, but you don't need to use the
+IBM Boot Manager.
+
+If you want to use NBoot with Windows NT, you have to install its Boot
+Manager in the same partition that the O.S., but you can put its timer to
+0 seconds.
+
+If you want to use NBoot with Linux, you only need to install LILO in the
+Boot Sector of the partition where the kernel is.
+
+If you have different Linuxes in different partitions, you will have to put a
+different LILO on each partition, possibly setting the LILO timer to 0.
+
+Of course, NBoot can be used with all other operating systems too, such AIX,
+FreeBSD, BeOS...
+
+When the timer is active, a decremental orange bar is showed at the top of
+the screen. If you press a key, the timer is stopped. If you press RETURN,
+the default operating system is booted.
+
+WARNING: if the BIOS virus protection is enabled, you can get false alarms
+each time you boot a new O.S. This is because to hidde partitions, NBoot (and
+all Boot Managers) must to change a bit in the partition entry, in the MBR.
+
+
+RECOMPILING NBoot FROM THE SOURCES
+
+NBoot has been written with Borland Turbo Assembler (TASM). If you want to
+recompile it, just type:
+
+        TASM NBoot.asm
+        TLINK /t NBooteng.obj
+
+wich will create a COM executable file.
+
+MS-DOS modifies some BIOS pointers, so if you try to use NBoot from it, your
+computer will crash. You can only install it in a floppy or in the hard
+disk, and then reboot and configure all. NBoot can work rigth only if is
+booted directly.
+
+
+CONTACTING THE AUTOR.
+
+NBoot has been written by
+
+	Yuichiro Nakada
+	nakada-m@po.across.or.jp
+	http://www.plaza.across.or.jp/~nakada-m
+
+NBoot'S HOME PAGE
+
+	http://
+
+If in doubt, just write and ask me.

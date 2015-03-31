@@ -1,0 +1,110 @@
+######################################################################
+[Japanese]    v1.1
+
+  DOS割込名,Windows/OS2-API名のコメント付き ix86 命令逆アセンブラー。
+  対象ファイルはMZ,PE,NE,LE,LX,W3,W4タイプのEXE/DLL/VxD.
+  これ以外は行コメント無しで処理されます。
+  WIN版とOS/２版がありますがどちらも対象ファイルを選びません
+  使用方法は "XDA /?" で出力される説明を見てください。
+                                                                      ||~0521I~
+                                By 福岡健 (a1sakata@cocoa.ocn.ne.jp)  ||~0521M~
+                                                                      ||~0521I~
+  LZH ファイルの内容。                                                ||~0521I~
+          XDAREAD.ME      このファイル                                ||~0521I~
+     v1.1 XDA.EXE         逆アセンブラー                              ||~0521I~
+     v1.2 XLIBH.EXE       LIBファイルインポート情報                   ||~0521I~
+          XLIBH.C         ソース (参考までに)                         ||~0528R~
+          ImpMFCv4        MFC v4 用 インポート関数名ファイル          ||~0521I~
+          ImpMFCv6        MFC v6 用 インポート関数名ファイル          ||~0521I~
+
+アップロード先
+     WIN版: (Nifty)FGALEL    lib  7 プログラマーツール         XDAWIN.LZH||~0521R~
+     OS2版: (Nifty)FGALEL    lib  7 プログラマーツール         XDAOS2.LZH||~0521R~
+     //www.vector.co.jp
+
+##変更履歴##
+1999/09/25:v1.0  
+
+2000/05/27:v1.1                                                       ||~0527R~
+  1.BUGS                                                              ||~0521I~
+    -MZファイルでRelocテーブルサイズ＝０のときExitする不具合          ||~0521I~
+    -PE ファイルでの文字列探索機能の漏れ。                            ||~0521I~
+     (/Nm の時は文字列探索はしません。)                               ||~0521I~
+    -/FD パラメータが無効。                                           ||~0521I~
+    -/FV パラメータがVxD名の順序によっては無視される。                ||~0521I~
+    -(OS2版)終了間際にSTACK オーバーライドでABEND                     ||~0527I~
+    -(OS2版)W4 のとき tempnam 失敗。                                  ||+0603R~
+    -LX ファイルの時 ABEND する事がある 。                            ||~0527I~
+  2.追加機能                                                          ||~0521I~
+    -文字列探索ロジックの強化。                                       ||~0521R~
+     不具合がある場合 /Ns オプションを試してください。
+    -PEファイル MS Linker version 6 対応。                            ||~0527R~
+     インポートアドレステーブルやコンスタント値がCODEセグメントに     ||~0521M~
+     置かれるようです。                                               ||~0521M~
+    -オーディナル番号でインポートされる MFCのDLL関数名をファイル入力で||~0521R~
+     サポート。                                                       ||~0521I~
+     /FM パラメータ使用。省略値はLinkerのバージョンにより ImpMFCv4 か ||~0521I~
+     ImpMFCv6。添付のものをEXEと同じディレクトリーに置いてください。  ||~0521I~
+     或は 環境変数 XDA= でディレクトリを指定して下さい。              ||~0527I~
+     ( /FD,/FV のファイル名もパス指定がないと同様の探索をします。)    ||~0527I~
+     MFCのバージョンアップの時は添付の XLIBH で再作成してください。   ||~0521I~
+     またEXEサイズ圧縮のため関数名でインポートされる関数は登録削除。  ||~0521I~
+     APIコメント出力に影響はないですがHELP出力(/?Dの出力)には出なく   ||~0521I~
+     なります。必要なら VC++付属のDUMPBINユーティリティーで調べてください。||~0521I~
+  2.修正                                                              ||~0603I~
+    -VxDでは privilege level=1 の命令も認める。                       ||~0603I~
+
+######################################################################
+[English]     v1.1
+
+  Disassembler for ix86 with line comment of DOS-INTR,Windows/OS2-API name.
+  Source EXE/DLL/VxD type to be process is MZ,PE,NE,LE,LX,W3,W4.
+  Any other format file may be processed without line comment.
+  Win and OS/2 version is prepared,and each can process all type of file.
+  Refer to the usage displayed by "XDA /?".
+                                                                      ||~0521I~
+                          By Fukuoka-ken (a1sakata@cocoa.ocn.ne.jp)   ||~0514I~
+                                                                      ||~0521I~
+  Contents of LZH file.                                               ||~0521I~
+          XDAREAD.ME      This file.                                  ||~0521I~
+     v1.1 XDA.EXE         Dis-assembler                               ||~0521I~
+     v1.2 XLIBH.EXE       LIB file import info.                       ||~0521I~
+          XLIBH.C         Source file of XLIBH.EXE                    ||~0521I~
+          ImpMFCv4        Import DLL functionname file for MFC v4     ||~0521I~
+          ImpMFCv6        Import DLL functionname file for MFC v6     ||~0521I~
+
+##Download
+  WIN  version:(Nifty)FGALEL lib  7  programer's tool          XDAWIN.LZH||~0521R~
+  OS/2 version:(Nifty)FGALEL lib  7  programer's tool          XDAOS2.LZH||~0521R~
+  //www.vector.co.jp
+
+##Update History##
+1999/09/25:v1.0
+
+2000/05/27:v1.1                                                       ||~0527R~
+  1.BUGS                                                              ||~0521I~
+    -Exit when MZ file has relocation table size=0.                   ||~0521I~
+    -No string serach logic works for PE file.                        ||~0521I~
+     (No string search yet works when /Nm option used.)               ||~0521I~
+    -/FD parameter is ignored.                                        ||~0521I~
+    -/FV parameter may be ignored if VxD name seq down.               ||~0521I~
+    -(OS/2)ABEND at term by STACK override.                           ||~0603I~
+    -(OS/2)temnam fail for W4 file.                                   ||+0603R~
+    -ABEND may occur for LX file.                                     ||~0527I~
+  2.Additional.                                                       ||~0521I~
+    -Enhansed string serach logic.                                    ||~0521R~
+     Try /Ns option when ABEND occured.
+    -For PE file by MS linker version 6.                              ||~0527R~
+     IAT or constant value may set on CODE segment.                   ||~0521M~
+    -Function name support by parm-file for MFC-DLL imported by       ||~0521R~
+     ordinal-no.                                                      ||~0521R~
+     Use /FM parameter.Default is ImpMFCv4 or ImpMFCv6 corresponding to||~0521I~
+     Linker major version <6 and >=6.Put appended files in the dir same||~0521I~
+     as EXE file.Or use env-var XDA= to specify search directory.     ||~0527R~
+     (For /FD and /FV,that is same as /FM if no pathinfo in parm.)    ||~0527I~
+     When MFC version up,remake those using XLIBH.EXE appended        ||~0527I~
+     also.To reduce EXE size,function name imported by name was removed.||~0521I~
+     API name on line comment is set as before,but no name on HELP output||~0521I~
+     by /?D.Use DUMPBIN utility on VC++ to get those name if you need.||~0521I~
+  2.Change.                                                           ||~0603I~
+    -Allow previlege level=1 instruction for VxD                      ||~0603I~
